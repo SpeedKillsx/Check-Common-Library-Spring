@@ -1,4 +1,4 @@
-package com.amayaslab.check_common_lib.annotation;
+package com.tonorganisation.checkcommonlib.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

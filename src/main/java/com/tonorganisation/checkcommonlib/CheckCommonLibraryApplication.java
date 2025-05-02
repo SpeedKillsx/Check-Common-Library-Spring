@@ -1,4 +1,4 @@
-package com.amayaslab.check_common_lib;
+package com.tonorganisation.checkcommonlib;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
