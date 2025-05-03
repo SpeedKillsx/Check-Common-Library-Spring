@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LightRetryAnnotation {
+public @interface RetryOnFailure {
     int maxAttempts() default 5;
     long delayMs() default 500;
     Class<? extends Throwable>[] includes() default {};

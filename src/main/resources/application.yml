@@ -2,5 +2,9 @@ spring:
   application:
     name: Check Common Library
 check-common:
-  audit-enable: true
+  audit-enable: false
   log-execution-time: true
+  retry:
+    enabled: true
+    default-max-attempts: 3
+    default-delay-ms: 500

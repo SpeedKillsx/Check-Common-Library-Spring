@@ -19,7 +19,7 @@ public class AuditAspect {
         this.auditProperties = auditProperties;
     }
 
-    @Around("@annotation(com.tonorganisation.checkcommonlib.annotation.AuditAnnotation)")
+    @Around("within(@org.springframework.web.bind.annotation.RestController *)")
     public Object audit(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!auditProperties.isAuditEnable()) {
             log.info("[AUDIT] AuditEnable is not enabled");

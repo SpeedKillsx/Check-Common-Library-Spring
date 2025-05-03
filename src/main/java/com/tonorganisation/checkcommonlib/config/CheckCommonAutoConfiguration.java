@@ -2,6 +2,7 @@ package com.tonorganisation.checkcommonlib.config;
 
 import com.tonorganisation.checkcommonlib.properties.AuditProperties;
 import com.tonorganisation.checkcommonlib.properties.LogExecutionTimeProperties;
+import com.tonorganisation.checkcommonlib.properties.RetryOnFailurePropreties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,5 +22,10 @@ public class CheckCommonAutoConfiguration {
     @Bean
     public LogExecutionTimeProperties logEcecutionTimeProperties() {
         return new LogExecutionTimeProperties();
+    }
+
+    @Bean
+    public RetryOnFailurePropreties retryOnFailurePropreties() {
+        return new RetryOnFailurePropreties();
     }
 }
