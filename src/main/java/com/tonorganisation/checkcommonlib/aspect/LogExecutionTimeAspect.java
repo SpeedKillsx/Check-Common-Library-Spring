@@ -17,7 +17,7 @@ public class LogExecutionTimeAspect {
         this.logExecutionTimeProperties = logExecutionTimeProperties;
     }
 
-    @Around("@annotation(com.tonorganisation.checkcommonlib.annotation.LogExecutionTime)")
+    @Around("@annotation(com.tonorganisation.checkcommonlib.annotation.LogExecutionTimeAnnotation)")
     public Object time(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!logExecutionTimeProperties.isLogExecutionTime()) {
             log.info("log execution time is set to false");
