@@ -21,14 +21,14 @@ public class AuditAspect {
 
     @Around("@annotation(com.tonorganisation.checkcommonlib.annotation.AuditAnnotation)")
     public Object audit(ProceedingJoinPoint joinPoint) throws Throwable {
-            if (!auditProperties.isAuditEnable()){
-                log.info("[AUDIT] AuditEnable is not enabled");
-                return joinPoint.proceed();
-            }
-            log.info("[AUDIT] Starting the Audit...");
-            Object result = joinPoint.proceed();
-            log.info("[AUDIT] Method signature: {}", joinPoint.getSignature());
-            log.info("[AUDIT] Method name: {} ; Returned result {} ", joinPoint.getSignature().getName(), result);
+        if (!auditProperties.isAuditEnable()) {
+            log.info("[AUDIT] AuditEnable is not enabled");
+            return joinPoint.proceed();
+        }
+        log.info("[AUDIT] Starting the Audit...");
+        Object result = joinPoint.proceed();
+        log.info("[AUDIT] Method signature: {}", joinPoint.getSignature());
+        log.info("[AUDIT] Method name: {} ; Returned result {} ", joinPoint.getSignature().getName(), result);
 
         return result;
 
