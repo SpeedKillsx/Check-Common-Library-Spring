@@ -1,4 +1,4 @@
-package com.tonorganisation.checkcommonlib;
+package io.github.speedkillsx.checkcommonlib;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
-package com.tonorganisation.checkcommonlib.aspect;
+package io.github.speedkillsx.checkcommonlib.aspect;
 
-import com.tonorganisation.checkcommonlib.properties.LogExecutionTimeProperties;
+import io.github.speedkillsx.checkcommonlib.properties.LogExecutionTimeProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

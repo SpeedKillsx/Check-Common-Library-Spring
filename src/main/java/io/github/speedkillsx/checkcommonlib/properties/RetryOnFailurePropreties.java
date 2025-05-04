@@ -1,4 +1,4 @@
-package com.tonorganisation.checkcommonlib.properties;
+package io.github.speedkillsx.checkcommonlib.properties;
 
 import lombok.Getter;
 import lombok.Setter;

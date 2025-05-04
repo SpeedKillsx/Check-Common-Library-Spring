@@ -1,4 +1,4 @@
-package com.tonorganisation.checkcommonlib.annotation;
+package io.github.speedkillsx.checkcommonlib.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
