@@ -1,13 +1,46 @@
+version: '3.8'
+
 services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
     ports:
-      - "8080:8080"
+      - "8090:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./settings.xml:/root/.m2/settings.xml
     environment:
-      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    networks:
+      - jenkins-net
+
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-Xms512m -Xmx1024m -XX:MaxDirectMemorySize=1024m
+    restart: unless-stopped
+    networks:
+      - jenkins-net
+
+  gpg:
+    image: ubuntu:22.04
+    container_name: gpg
+    volumes:
+      - ./gpg:/gpg
+    entrypoint: ["/bin/bash", "/gpg/generate-keys.sh"]
+    networks:
+      - jenkins-net
+
 volumes:
   jenkins_home:
+  nexus-data:
+
+networks:
+  jenkins-net:
+    driver: bridge

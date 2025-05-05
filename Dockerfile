@@ -1,6 +1,14 @@
+
 FROM ubuntu
-RUN apt-get update && apt-get install openjdk-17-jdk curl vim -y
-WORKDIR opt
-ADD target/checkcommonlib-*.jar checkcommonlib
+
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk curl vim maven gnupg2 git && \
+    apt-get clean
+
+WORKDIR /opt
+
+COPY target/checkcommonlib-*.jar checkcommonlib.jar
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/opt/checkcommonlib.jar"]
+
+ENTRYPOINT ["java", "-jar", "/opt/checkcommonlib.jar"]
