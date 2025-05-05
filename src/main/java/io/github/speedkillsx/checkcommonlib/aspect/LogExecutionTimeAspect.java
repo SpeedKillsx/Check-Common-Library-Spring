@@ -42,7 +42,6 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Aspect
-@Component
 public class LogExecutionTimeAspect {
     private final LogExecutionTimeProperties logExecutionTimeProperties;
 
@@ -64,7 +63,7 @@ public class LogExecutionTimeAspect {
      * @return : Object
      * @throws Throwable : Throw an exception, error
      */
-    @Around("within(@org.springframework.web.bind.annotation.RestController *)")
+    @Around("@within(org.springframework.web.bind.annotation.RestController)")
     public Object time(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!logExecutionTimeProperties.isLogExecutionTime()) {
             log.info("log execution time is set to false");

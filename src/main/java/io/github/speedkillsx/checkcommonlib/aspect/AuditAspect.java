@@ -32,7 +32,6 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Aspect
-@Component
 public class AuditAspect {
 
     private final AuditProperties auditProperties;
@@ -56,7 +55,7 @@ public class AuditAspect {
      * @return : Object
      * @throws Throwable : Throw an exception or error
      */
-    @Around("within(@org.springframework.web.bind.annotation.RestController *)")
+    @Around("@within(org.springframework.web.bind.annotation.RestController)")
     public Object audit(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!auditProperties.isAuditEnable()) {
             log.info("[AUDIT] AuditEnable is not enabled");

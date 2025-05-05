@@ -3,6 +3,7 @@ package io.github.speedkillsx.checkcommonlib.properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Configuration properties for auditing functionality in the application.
@@ -20,6 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
+@Component
 @ConfigurationProperties(prefix = "check-common")
 public class AuditProperties {
     private boolean auditEnable;

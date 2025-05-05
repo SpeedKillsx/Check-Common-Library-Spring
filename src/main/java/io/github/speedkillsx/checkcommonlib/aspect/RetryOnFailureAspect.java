@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Aspect
-@Component
 public class RetryOnFailureAspect {
     private final RetryOnFailurePropreties retryOnFailurePropreties;
 
