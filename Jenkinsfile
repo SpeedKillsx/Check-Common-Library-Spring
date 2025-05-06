@@ -27,6 +27,7 @@ pipeline {
                             sh 'ls -la'
                         }
                     }
+         }
 
         stage('Import GPG Keys') {
             steps {
