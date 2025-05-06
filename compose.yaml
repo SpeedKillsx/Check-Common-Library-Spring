@@ -9,7 +9,8 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ./settings.xml:/root/.m2/settings.xml
+      - ~/.gnupg:/root/.gnupg:ro
+      - ./settings.xml:/root/.m2/settings.xml:ro
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     networks:
@@ -25,15 +26,6 @@ services:
     environment:
       - INSTALL4J_ADD_VM_PARAMS=-Xms512m -Xmx1024m -XX:MaxDirectMemorySize=1024m
     restart: unless-stopped
-    networks:
-      - jenkins-net
-
-  gpg:
-    image: ubuntu:22.04
-    container_name: gpg
-    volumes:
-      - ./gpg:/gpg
-    entrypoint: ["/bin/bash", "/gpg/generate-keys.sh"]
     networks:
       - jenkins-net
 

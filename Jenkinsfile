@@ -5,6 +5,12 @@ pipeline {
         maven 'Maven3'
     }
 
+    environment {
+        GPG_PASSPHRASE = credentials('ringane') // use ID from Jenkins credentials
+        OSSRH_USERNAME = credentials('g22wyEOk')
+        OSSRH_PASSWORD = credentials('JOWq0yFAt3tGRqkvIv1y/ajw/yS/IsHFqDZjXNon1SOQ')
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -12,31 +18,32 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Import GPG Key') {
             steps {
-                script {
-                    sh 'mvn clean install'
-                }
+                sh '''
+                    gpg --import ~/.gnupg/private.key
+                    gpg --import ~/.gnupg/public.key
+                '''
             }
         }
 
-        stage('Test') {
+        stage('Build & Deploy') {
             steps {
-                script {
-                    sh 'mvn test'
-                }
+                sh '''
+                  mvn clean deploy \
+                    -P release \
+                    -Dgpg.passphrase=$GPG_PASSPHRASE
+                '''
             }
         }
-
-        stage('Deploy') {
-            steps {
-                script {
-                    sh 'mvn clean deploy'
-                }
-            }
-        }
-
     }
 
     post {
-        succes
+        success {
+            echo 'Build and deploy succeeded!'
+        }
+        failure {
+            echo 'Build or deploy failed.'
+        }
+    }
+}
