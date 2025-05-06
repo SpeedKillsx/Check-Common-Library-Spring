@@ -5,9 +5,9 @@
 
   <servers>
     <server>
-	    <id>ossrh</id>
-	    <username>${env.OSSRH_USERNAME}</username>
-	    <password>${env.OSSRH_PASSWORD}</password>
+      <id>ossrh</id>
+      <username>${OSSRH_USERNAME}</username>
+      <password>${OSSRH_PASSWORD}</password>
     </server>
   </servers>
 
@@ -16,8 +16,7 @@
       <id>gpg</id>
       <properties>
         <gpg.keyname>F7593AF7</gpg.keyname>
-        <gpg.passphrase>ringane</gpg.passphrase>
-        <gpg.executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</gpg.executable>
+        <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
       </properties>
     </profile>
   </profiles>

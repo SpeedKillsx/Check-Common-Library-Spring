@@ -58,10 +58,10 @@ pipeline {
                 echo 'Début du processus de build et de déploiement...'
                 script {
                     sh """
-                        echo 'Lancement de Maven avec settings.xml monté via Docker...'
-                        mvn clean deploy -P release
+                        mvn clean deploy -P release -Dossrh.username=${OSSRH_USERNAME} -Dossrh.password=${OSSRH_PASSWORD} -Dgpg.passphrase=${GPG_PASSPHRASE}
                     """
                 }
+
             }
         }
     }
