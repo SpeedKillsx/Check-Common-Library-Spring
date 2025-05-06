@@ -5,12 +5,7 @@ pipeline {
         maven 'Maven3'
     }
 
-    stage('Simple Echo') {
-        steps {
-            echo 'Testing simple echo'
-            sh 'echo "Hello Jenkins"'
-        }
-    }
+
     environment {
         GPG_PASSPHRASE = credentials('ringane')
         OSSRH_USERNAME = credentials('g22wyEOk')
@@ -18,6 +13,13 @@ pipeline {
     }
 
     stages {
+        stage('Simple Echo') {
+                steps {
+                    echo 'Testing simple echo'
+                    sh 'echo "Hello Jenkins"'
+                }
+        }
+
         stage('Checkout') {
             steps {
                 echo 'Checkout du repository depuis GitHub...'
