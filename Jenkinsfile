@@ -20,6 +20,17 @@ pipeline {
             }
         }
 
+        stage('Debug Credentials') {
+            steps {
+                script {
+                    echo "OSSRH_USERNAME: ${OSSRH_USERNAME != null ? 'OK' : 'MISSING'}"
+                    echo "OSSRH_PASSWORD: ${OSSRH_PASSWORD != null ? 'OK' : 'MISSING'}"
+                    echo "GPG_PASSPHRASE: ${GPG_PASSPHRASE != null ? 'OK' : 'MISSING'}"
+                }
+            }
+        }
+
+
         stage('Validate-git') {
             steps {
                 script {
