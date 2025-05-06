@@ -21,6 +21,12 @@ pipeline {
                 echo 'Repository checkout terminé.'
             }
         }
+         stage('Validate-git') {
+                    steps {
+                        script {
+                            sh 'ls -la'
+                        }
+                    }
 
         stage('Import GPG Keys') {
             steps {
