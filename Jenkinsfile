@@ -24,6 +24,7 @@ pipeline {
                     gpg --import ~/.gnupg/private.key
                     gpg --import ~/.gnupg/public.key
                 '''
+                echo "gpg imported"
             }
         }
 
