@@ -1,14 +1,7 @@
+FROM jenkins/jenkins:lts
 
-FROM ubuntu
+USER root
 
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk curl vim maven gnupg2 git && \
-    apt-get clean
+RUN apt-get update && apt-get install -y maven gnupg
 
-WORKDIR /opt
-
-COPY target/checkcommonlib-*.jar checkcommonlib.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/opt/checkcommonlib.jar"]
+USER jenkins
