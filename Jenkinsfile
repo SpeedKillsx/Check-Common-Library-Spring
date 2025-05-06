@@ -7,8 +7,8 @@ pipeline {
 
     environment {
         // Récupération des credentials Jenkins
-        GPG_PASSPHRASE = credentials('ringane') // ID de l'ID de credentials pour le passphrase GPG
-        OSSRH_USERNAME = credentials('g22wyEOk') // ID des credentials pour le Sonatype OSSRH
+        GPG_PASSPHRASE = credentials('ringane')
+        OSSRH_USERNAME = credentials('g22wyEOk')
         OSSRH_PASSWORD = credentials('JOWq0yFAt3tGRqkvIv1y/ajw/yS/IsHFqDZjXNon1SOQ') // ID des credentials pour Sonatype OSSRH
     }
 
@@ -16,23 +16,22 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checkout du repository depuis GitHub...'
-                // Checkout du repository depuis GitHub
                 checkout scm
                 echo 'Repository checkout terminé.'
             }
         }
-         stage('Validate-git') {
-                    steps {
-                        script {
-                            sh 'ls -la'
-                        }
-                    }
-         }
+
+        stage('Validate-git') {
+            steps {
+                script {
+                    sh 'ls -la'
+                }
+            }
+        }
 
         stage('Import GPG Keys') {
             steps {
                 echo 'Importation des clés GPG...'
-                // Import des clés GPG pour signer les artefacts Maven
                 script {
                     sh """
                         echo 'Importation des clés privées...'
@@ -45,14 +44,46 @@ pipeline {
             }
         }
 
+        stage('Generate Maven settings.xml') {
+            steps {
+                echo 'Génération du fichier settings.xml personnalisé...'
+                script {
+                    writeFile file: 'settings.xml', text: """
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>${OSSRH_USERNAME}</username>
+      <password>${OSSRH_PASSWORD}</password>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <id>gpg</id>
+      <properties>
+        <gpg.keyname>F7593AF7</gpg.keyname>
+        <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>gpg</activeProfile>
+  </activeProfiles>
+</settings>
+                    """
+                }
+            }
+        }
+
         stage('Build & Deploy') {
             steps {
                 echo 'Début du processus de build et de déploiement...'
-                // Compilation et déploiement Maven
                 script {
                     sh """
-                        echo 'Lancement de la commande Maven pour clean et deploy...'
-                        mvn clean deploy -P release -Dgpg.passphrase=$GPG_PASSPHRASE
+                        echo 'Lancement de la commande Maven avec settings.xml personnalisé...'
+                        mvn clean deploy -P release -s settings.xml
                     """
                 }
                 echo 'Processus de build et déploiement terminé.'
