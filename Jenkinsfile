@@ -67,7 +67,7 @@ pipeline {
                     mvn clean deploy -P gpg \
                     -Dossrh.username=${OSSRH_CREDS_USR} \
                     -Dossrh.password=${OSSRH_CREDS_PSW} \
-                    -Dgpg.passphrase=${GPG_PASSPHRASE}
+                    -Dgpg.passphrase=${GPG_PASSPHRASE} -X
                 """
             }
         }
