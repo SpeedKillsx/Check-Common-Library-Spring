@@ -63,15 +63,11 @@ pipeline {
         stage('Build & Deploy') {
 			steps {
 				echo '🚀 Building and deploying...'
-				withMaven(
-				  maven: 'Maven3',
-				  mavenSettingsConfig: 'ossrh-settings',
-				  credentialsId: 'ossrh-creds'
-				) {
+
 								sh """
 					mvn clean deploy -P gpg
 				  """
-				}
+
 			  }
 			}
 
