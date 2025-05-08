@@ -6,8 +6,8 @@
   <servers>
     <server>
       <id>ossrh</id>
-      <username>${OSSRH_USERNAME}</username>
-      <password>${OSSRH_PASSWORD}</password>
+      <username>${OSSRH_CREDS_USR}</username>
+      <password>${OSSRH_CREDS_PSW}</password>
     </server>
   </servers>
 

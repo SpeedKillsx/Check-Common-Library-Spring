@@ -27,8 +27,8 @@ pipeline {
 
         stage('Debug Credentials') {
 			steps {
-				echo "OSSRH_USERNAME: ${OSSRH_USERNAME != null ? 'OK' : 'MISSING'}"
-                echo "OSSRH_PASSWORD: ${OSSRH_PASSWORD != null ? 'OK' : 'MISSING'}"
+				echo "OSSRH_USERNAME: ${OSSRH_CREDS_USR != null ? 'OK' : 'MISSING'}"
+                echo "OSSRH_PASSWORD: ${OSSRH_CREDS_PSW != null ? 'OK' : 'MISSING'}"
                 echo "GPG_PASSPHRASE: ${GPG_PASSPHRASE != null ? 'OK' : 'MISSING'}"
             }
         }
