@@ -62,16 +62,19 @@ pipeline {
 
         stage('Build & Deploy') {
 			steps {
-				echo 'Starting build and deployment...'
-                sh """
-                    mvn clean deploy -P gpg \
-                    -DskipTests \
-                    -Dossrh.username=${OSSRH_CREDS_USR} \
-                    -Dossrh.password=${OSSRH_CREDS_PSW} \
-                    -Dgpg.passphrase=${GPG_PASSPHRASE}
-                """
-            }
-        }
+				echo '🚀 Building and deploying...'
+				withMaven(
+				  maven: 'Maven3',
+				  mavenSettingsConfig: 'ossrh-settings',
+				  credentialsId: 'ossrh-creds'
+				) {
+								sh """
+					mvn clean deploy -P gpg
+				  """
+				}
+			  }
+			}
+
     }
 
 
