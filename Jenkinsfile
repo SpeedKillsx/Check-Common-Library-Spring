@@ -47,8 +47,8 @@ pipeline {
 					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/public.gpg || echo "❗ Failed to import public key"
 					gpg --list-secret-keys
 				'''
-    	}
-	}
+    		}
+		}
         stage('Test GPG Signing') {
 			steps {
 				echo '🧪 Testing GPG signing...'
@@ -60,6 +60,12 @@ pipeline {
              }
         }
 
+		stage('Debug Settings.xml') {
+			steps {
+				echo '📂 Dumping ~/.m2/settings.xml for debug...'
+   			     sh 'cat ~/.m2/settings.xml || echo "⚠️ settings.xml not found!"'
+			}
+		}
         stage('Build & Deploy') {
 			steps {
 				echo 'Starting build and deployment...'
