@@ -7,15 +7,14 @@ pipeline {
 
     environment {
         GPG_PASSPHRASE = credentials('ringane')
-        OSSRH_USERNAME = credentials('g22wyEOk')
-        OSSRH_PASSWORD = credentials('JOWq0yFAt3tGRqkvIv1y/ajw/yS/IsHFqDZjXNon1SOQ')
+        OSSRH_CREDS = credentials('ossrh-creds')
     }
 
     stages {
         stage('Simple Echo') {
             steps {
                 echo 'Testing simple echo'
-                sh 'echo "Hello Jenkins"'
+                sh 'chmod 777 mvnw && echo "Hello Jenkins"'
             }
         }
 
@@ -56,9 +55,9 @@ pipeline {
             steps {
                 echo 'Starting build and deployment...'
                 sh """
-                    mvn clean deploy -P release \
-                    -Dossrh.username=${OSSRH_USERNAME} \
-                    -Dossrh.password=${OSSRH_PASSWORD} \
+                    ./mvn clean deploy -P release \
+                    -Dossrh.username=${OSSRH_CREDS_USR} \
+                    -Dossrh.password=${OSSRH_CREDS_PSW} \
                     -Dgpg.passphrase=${GPG_PASSPHRASE}
                 """
             }
