@@ -41,25 +41,24 @@ pipeline {
 
         stage('Import GPG Keys') {
 			steps {
-				echo 'Importing GPG keys...'
-                sh '''
-                    gpg --import /root/.gnupg/private.key || echo "Failed to import private key"
-                    gpg --import /root/.gnupg/public.key || echo "Failed to import public key"
-                    gpg --list-keys
-                '''
-            }
-        }
-        stage('Import GPG Keys') {
-			steps {
 				echo '🔑 Importing GPG keys...'
 				sh '''
 					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/private.key || echo "❗ Failed to import private key"
 					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/public.key || echo "❗ Failed to import public key"
 					gpg --list-secret-keys
 				'''
-    		}
-		}
-
+    	}
+	}
+        stage('Test GPG Signing') {
+			steps {
+				echo '🧪 Testing GPG signing...'
+                sh '''
+                    echo "Test file" > test.txt
+                    gpg --batch --yes --pinentry-mode loopback --passphrase "${GPG_PASSPHRASE}" -ab test.txt
+                    ls -la test.txt*
+                '''
+             }
+        }
 
         stage('Build & Deploy') {
 			steps {
