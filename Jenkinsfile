@@ -43,8 +43,8 @@ pipeline {
 			steps {
 				echo '🔑 Importing GPG keys...'
 				sh '''
-					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/private.key || echo "❗ Failed to import private key"
-					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/public.key || echo "❗ Failed to import public key"
+					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/private.gpg || echo "❗ Failed to import private key"
+					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/public.gpg || echo "❗ Failed to import public key"
 					gpg --list-secret-keys
 				'''
     	}
