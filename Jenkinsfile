@@ -68,7 +68,7 @@ pipeline {
                     -DskipTests \
                     -Dossrh.username=${OSSRH_CREDS_USR} \
                     -Dossrh.password=${OSSRH_CREDS_PSW} \
-                    -Dgpg.passphrase=${GPG_PASSPHRASE} -X
+                    -Dgpg.passphrase=${GPG_PASSPHRASE}
                 """
             }
         }

@@ -16,7 +16,7 @@
       <id>gpg</id>
       <properties>
         <gpg.keyname>F7593AF7</gpg.keyname>
-        <gpg.passphrase>ringanne</gpg.passphrase>
+        <gpg.passphrase>ringane</gpg.passphrase>
       </properties>
     </profile>
   </profiles>
