@@ -6,8 +6,8 @@
   <servers>
     <server>
       <id>ossrh</id>
-      <username>${OSSRH_CREDS_USR}</username>
-      <password>${OSSRH_CREDS_PSW}</password>
+      <username>g22wyEOk</username>
+      <password>JOWq0yFAt3tGRqkvIv1y/ajw/yS/IsHFqDZjXNon1SOQ</password>
     </server>
   </servers>
 
@@ -16,7 +16,7 @@
       <id>gpg</id>
       <properties>
         <gpg.keyname>F7593AF7</gpg.keyname>
-        <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
+        <gpg.passphrase>ringane</gpg.passphrase>
       </properties>
     </profile>
   </profiles>
