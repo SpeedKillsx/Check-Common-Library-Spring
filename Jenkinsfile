@@ -64,7 +64,7 @@ pipeline {
 			steps {
 				echo 'Starting build and deployment...'
                 sh """
-                    ./mvn clean deploy -P release \
+                    mvn clean deploy -P release \
                     -Dossrh.username=${OSSRH_CREDS_USR} \
                     -Dossrh.password=${OSSRH_CREDS_PSW} \
                     -Dgpg.passphrase=${GPG_PASSPHRASE}
