@@ -49,16 +49,17 @@ pipeline {
                 '''
             }
         }
-        stage('Test GPG Signing') {
+        stage('Import GPG Keys') {
 			steps {
-				echo '🧪 Testing GPG signing...'
-                sh '''
-                    echo "Test file" > test.txt
-                    gpg --batch --yes --pinentry-mode loopback --passphrase "${GPG_PASSPHRASE}" -ab test.txt
-                    ls -la test.txt*
-                '''
-             }
-        }
+				echo '🔑 Importing GPG keys...'
+				sh '''
+					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/private.key || echo "❗ Failed to import private key"
+					gpg --batch --yes --pinentry-mode loopback --import /var/jenkins_home/.gnupg/public.key || echo "❗ Failed to import public key"
+					gpg --list-secret-keys
+				'''
+    		}
+		}
+
 
         stage('Build & Deploy') {
 			steps {
