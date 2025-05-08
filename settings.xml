@@ -16,8 +16,7 @@
       <id>gpg</id>
       <properties>
         <gpg.keyname>F7593AF7</gpg.keyname>
-        <gpg.passphrase>ringane</gpg.passphrase>
-        <gpg.executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</gpg.executable>
+        <gpg.passphrase>ringanne</gpg.passphrase>
       </properties>
     </profile>
   </profiles>
