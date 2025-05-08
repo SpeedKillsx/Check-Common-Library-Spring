@@ -5,7 +5,6 @@ pipeline {
         maven 'Maven3'
     }
 
-
     environment {
         GPG_PASSPHRASE = credentials('ringane')
         OSSRH_USERNAME = credentials('g22wyEOk')
@@ -14,10 +13,10 @@ pipeline {
 
     stages {
         stage('Simple Echo') {
-                steps {
-                    echo 'Testing simple echo'
-                    sh 'echo "Hello Jenkins"'
-                }
+            steps {
+                echo 'Testing simple echo'
+                sh 'echo "Hello Jenkins"'
+            }
         }
 
         stage('Checkout') {
@@ -30,46 +29,38 @@ pipeline {
 
         stage('Debug Credentials') {
             steps {
-                script {
-                    echo "OSSRH_USERNAME: ${OSSRH_USERNAME != null ? 'OK' : 'MISSING'}"
-                    echo "OSSRH_PASSWORD: ${OSSRH_PASSWORD != null ? 'OK' : 'MISSING'}"
-                    echo "GPG_PASSPHRASE: ${GPG_PASSPHRASE != null ? 'OK' : 'MISSING'}"
-                }
+                echo "OSSRH_USERNAME: ${OSSRH_USERNAME != null ? 'OK' : 'MISSING'}"
+                echo "OSSRH_PASSWORD: ${OSSRH_PASSWORD != null ? 'OK' : 'MISSING'}"
+                echo "GPG_PASSPHRASE: ${GPG_PASSPHRASE != null ? 'OK' : 'MISSING'}"
             }
         }
 
-
-        stage('Validate-git') {
+        stage('Validate Git') {
             steps {
-                script {
-                    sh 'ls -la'
-                }
+                sh 'ls -la'
             }
         }
 
         stage('Import GPG Keys') {
             steps {
-                echo 'Importation des clés GPG...'
-                script {
-                    sh """
-                        echo 'Importation des clés privées...'
-                        gpg --import ~/.gnupg/private.key
-                        echo 'Importation des clés publiques...'
-                        gpg --import ~/.gnupg/public.key
-                    """
-                }
+                echo 'Importing GPG keys...'
+                sh '''
+                    gpg --import /root/.gnupg/private.key || echo "Failed to import private key"
+                    gpg --import /root/.gnupg/public.key || echo "Failed to import public key"
+                    gpg --list-keys
+                '''
             }
         }
 
         stage('Build & Deploy') {
             steps {
-                echo 'Début du processus de build et de déploiement...'
-                script {
-                    sh """
-                        mvn clean deploy -P release -Dossrh.username=${OSSRH_USERNAME} -Dossrh.password=${OSSRH_PASSWORD} -Dgpg.passphrase=${GPG_PASSPHRASE}
-                    """
-                }
-
+                echo 'Starting build and deployment...'
+                sh """
+                    mvn clean deploy -P release \
+                    -Dossrh.username=${OSSRH_USERNAME} \
+                    -Dossrh.password=${OSSRH_PASSWORD} \
+                    -Dgpg.passphrase=${GPG_PASSPHRASE}
+                """
             }
         }
     }
