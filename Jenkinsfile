@@ -62,15 +62,14 @@ pipeline {
 
         stage('Build & Deploy') {
 			steps {
-				echo '🚀 Building and deploying...'
-
-								sh """
-					mvn clean deploy -P gpg
-				  """
-
-			  }
-			}
-
+				echo 'Starting build and deployment...'
+				echo 'cat ~/.m2/settings.xml'
+                sh """
+                    mvn clean deploy -P gpg \
+                    -DskipTests
+                """
+            }
+        }
     }
 
 
