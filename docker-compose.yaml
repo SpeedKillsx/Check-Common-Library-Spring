@@ -10,8 +10,8 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - ~/.gnupg:/var/jenkins_home/.gnupg:ro
-      - ./settings.xml:/root/.m2/settings.xml:ro
+      - ~/.gnupg:/var/jenkins_home/.gnupg
+      - ./settings.xml:/root/.m2/settings.xml
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     networks:
