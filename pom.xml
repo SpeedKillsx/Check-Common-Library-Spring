@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.github.speedkillsx</groupId>
     <artifactId>checkcommonlib</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Check Common Library</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
