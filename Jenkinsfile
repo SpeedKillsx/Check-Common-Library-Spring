@@ -65,6 +65,7 @@ pipeline {
 				echo 'Starting build and deployment...'
                 sh """
                     mvn clean deploy -P gpg \
+                    -DskipTests \
                     -Dossrh.username=${OSSRH_CREDS_USR} \
                     -Dossrh.password=${OSSRH_CREDS_PSW} \
                     -Dgpg.passphrase=${GPG_PASSPHRASE} -X
