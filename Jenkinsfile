@@ -17,7 +17,6 @@ pipeline {
                 sh 'chmod 777 mvnw && echo "Hello Jenkins"'
             }
         }
-
         stage('Checkout') {
             steps {
                 echo 'Checkout du repository depuis GitHub...'
